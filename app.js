@@ -54,13 +54,14 @@ stream.on('data', function(event) {
       fs.readFile(filename, (err, data) => {
         let json = JSON.parse(data).concat(tweets);
         let newJson = json.concat(tweets);
-        while (json.length > 100000){
+        while (json.length > 5000){
           json.shift();
         }
-        fs.writeFileSync(filename, JSON.stringify(json, null, 2), (err) => {
-          if (err) throw err;
+        fs.writeFileSync(filename, JSON.stringify(json), (err) => {
+          // if (err) throw err;
         });
         tweets = [];
+        if (err) throw err;
       });
     }
 

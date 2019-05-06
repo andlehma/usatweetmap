@@ -64,7 +64,7 @@ function drawDots(){
 const socket = io();
 socket.on('new tweet', (tweet) => {
   tweets.push(tweet);
-  if (tweets.length > 100000){
+  while (tweets.length > 5000){
     tweets.shift();
   }
   drawDots();
