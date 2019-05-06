@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  background-color: #181c23;
+}
+
+#map-canvas {
+  margin: auto;
+  display: block;
+}
+
+#github, #github:visited {
+  position: fixed;
+  bottom: 2px;
+  left: 2px;
+  margin: 0;
+  font-size: 12px;
+  color: #f7f7df;
+}
