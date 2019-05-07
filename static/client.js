@@ -61,7 +61,7 @@ function drawDots(){
 }
 
 // get new tweets
-const socket = io();
+const socket = io('/', {path: 'usatweetmap/socket.io'});
 socket.on('new tweet', (tweet) => {
   tweets.push(tweet);
   while (tweets.length > 5000){
