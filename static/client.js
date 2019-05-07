@@ -8,7 +8,7 @@ let iH = window.innerHeight;
 // initialize background img and read tweets from tweets.json
 let tweets = [];
 let background = new Image();
-background.src = "img/map.png";
+background.src = "img/map.svg";
 background.onload = function(){
   let imgWidth = background.width;
   let imgHeight = background.height;
@@ -84,7 +84,7 @@ function mouseWheelHandler(evt){
   let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
   let pt = ctx.transformedPoint(mouse.x, mouse.y);
   ctx.translate(pt.x, pt.y);
-  let factor = Math.pow(1.1, delta);
+  let factor = Math.pow(1.2, delta);
   ctx.scale(factor, factor);
   xyScale *= factor;
   ctx.translate(-pt.x, -pt.y);
