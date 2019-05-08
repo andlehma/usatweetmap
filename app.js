@@ -7,6 +7,10 @@ const io = require('socket.io')(http, {path: '/usatweetmap/socket.io'});
 const port = 8000;
 require('dotenv').config()
 let filename = 'static/tweets.json';
+let json = [];
+fs.readFile(filename, (err, data) => {
+  json = JSON.parse(data).concat(tweets);
+});
 
 const client = new Twitter({
   consumer_key: process.env.CONSUMER_KEY,
@@ -45,25 +49,25 @@ stream.on('data', function(event) {
   if (coords != null){
 
     // write to server console
-    // console.log(coords);
+    console.log(coords);
 
     // add to queue to be written to file
     tweets.push(coords);
 
     // write to file
     if (tweets.length >= tweet_threshold){
-      fs.readFile(filename, (err, data) => {
-        let json = JSON.parse(data).concat(tweets);
-        let newJson = json.concat(tweets);
-        while (json.length > max_tweets){
-          json.shift();
-        }
-        fs.writeFileSync(filename, JSON.stringify(json), (err) => {
-          // if (err) throw err;
-        });
-        tweets = [];
-        if (err) throw err;
+      let newJson = json.concat(tweets);
+      console.log(json.length);
+      if (json.length >= max_tweets){
+        console.log('maximum number of tweets reached');
+      }
+      while (json.length > max_tweets){
+        json.shift();
+      }
+      fs.writeFileSync(filename, JSON.stringify(json), (err) => {
+        // if (err) throw err;
       });
+      tweets = [];
     }
 
     // send to client
