@@ -21,6 +21,7 @@ const stream = client.stream('statuses/filter', params);
 
 let tweets = [];
 let tweet_threshold = 100;
+let max_tweets = 100000;
 stream.on('data', function(event) {
   let coords = null;
   if (event.place && event.place.country_code == "US"){
@@ -54,7 +55,7 @@ stream.on('data', function(event) {
       fs.readFile(filename, (err, data) => {
         let json = JSON.parse(data).concat(tweets);
         let newJson = json.concat(tweets);
-        while (json.length > 5000){
+        while (json.length > max_tweets){
           json.shift();
         }
         fs.writeFileSync(filename, JSON.stringify(json), (err) => {

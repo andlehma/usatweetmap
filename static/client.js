@@ -61,10 +61,11 @@ function drawDots(){
 }
 
 // get new tweets
+let max_tweets = 100000;
 const socket = io('/', {path: 'usatweetmap/socket.io'});
 socket.on('new tweet', (tweet) => {
   tweets.push(tweet);
-  while (tweets.length > 5000){
+  while (tweets.length > max_tweets){
     tweets.shift();
   }
   drawDots();
